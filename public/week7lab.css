@@ -1,0 +1,50 @@
+.tableHead{
+    background-color: rgb(61, 88, 146);
+}
+
+.form-center{
+    margin-top: 10px;
+    margin-left: 35%;
+    color: aliceblue;
+}
+
+img {
+    height: 250px;
+    width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+} 
+
+body {
+    background-color: rgb(21, 76, 128);
+    
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    color: rgb(96, 180, 201);
+
+}
+
+h3 {
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    font-size: 30px;
+    color: rgb(96, 180, 201);
+
+}
+
+#home,#homeAddTask,#homeInsertMany,#homeListTask,#homeDeleteTask,#homeUpdateTask {
+    margin-left: 15px;
+}
+
+#homeDelAllCompleted {
+    margin-left: 15px;
+    color: white;
+}
+
+
