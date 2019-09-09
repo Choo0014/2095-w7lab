@@ -3,6 +3,7 @@ const router = express.Router();
 const path2Views = __dirname + "/views";
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
+const mongoose = require('mongoose');
 
 const morgan = require('morgan');
 const url = 'mongodb://localhost:27017/';
@@ -19,7 +20,7 @@ MongoClient.connect(url, {
         console.log('Err  ', err);
     } else {
         console.log("Connected successfully to server");
-        db = client.db("week6Lab");
+        db = client.db("week7Lab");
     }
 });
 
@@ -43,7 +44,7 @@ router.post('/formTask', function (req, res) {
     console.log(req.body.newStatus);
 
     //Passing into MongoDB
-    db.collection("week6lab").insertOne({
+    db.collection("week7Lab").insertOne({
         taskName: req.body.newTask,
         taskPersonInCharge: req.body.newInCharge,
         taskDueDate: req.body.newDue,
@@ -91,15 +92,30 @@ router.post('/formInsertMany', function (req, res) {
 
     }
     console.log("Array:" + arrayMany);
-    db.collection("week6lab").insertMany(arrayMany); //passs in the array of objects
+    db.collection("week7Lab").insertMany(arrayMany); //passs in the array of objects
     res.redirect('/listTask');
 })
 
+//Adding new Developer Page
+
+router.get('/addDevs', function (req, res) {
+    res.sendFile(path2Views + '/addDevs.html');
+
+});
+
+//Listing Developers Page
+
+router.get('/listDevs', function (req, res) {
+    Devs.find({}, function (err, d) {
+        if(err) throw err;
+        res.render(path2Views + '/listDevs.html', {devs: d});
+    });
+});
 
 //listing task page
 router.get('/listTask', function (req, res) {
 
-    db.collection("week6lab").find({}).toArray(function (err, data) {
+    db.collection("week7Lab").find({}).toArray(function (err, data) {
         res.render('listTask.html', {
             taskDb: data
         });
@@ -121,7 +137,7 @@ router.post('/formDeleteTask', function (req, res) {
     }
     console.log(filter);
 
-    db.collection('week6lab').deleteOne(filter);
+    db.collection('week7Lab').deleteOne(filter);
     res.redirect('/listTask');
 
 });
@@ -140,7 +156,7 @@ router.post('/formDeleteAll', function (req, res) {
     }
     console.log(filter);
 
-    db.collection('week6lab').deleteMany(filter);
+    db.collection('week7Lab').deleteMany(filter);
     res.redirect('/listTask');
 
 });
@@ -163,8 +179,25 @@ router.post('/formUpdateTask', function (req, res) {
         }
     };
 
-    db.collection('week6lab').updateOne(filter, theUpdate);
+
+    db.collection('week7Lab').updateOne(filter, theUpdate);
     res.redirect('/listTask');
 
+});
+
+//Adding new Developer Page
+
+router.get('/addDevs', function (req, res) {
+    res.sendFile(path2Views + '/addDevs.html');
+
+});
+
+//Listing Developers Page
+
+router.get('/listDevs', function (req, res) {
+    Devs.find({}, function (err, d) {
+        if(err) throw err;
+        res.render(path2Views + '/listDevs.html', {devs: d});
+    });
 });
 module.exports = router;

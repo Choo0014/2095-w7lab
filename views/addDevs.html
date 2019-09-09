@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Adding Developers</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="week7lab.css" />
+
+</head>
+
+<body>
+
+
+    <h1>Add a new developer below</h1>
+    <div class="text-center">
+        <a class="btn btn-warning btn-lg"   id="homeAddTask" href="/" role="button">Home</a>
+        <a class="btn btn-primary btn-lg"   id="homeAddDevs" href="/addDevs" role="button">Add developer</a>
+        <a class="btn btn-info btn-lg"      id="homeListDevs" href="/listDevs" role="button">List developers</a>
+        <a class="btn btn-primary btn-lg"   id="homeInsertMany" href="/addTask" role="button">Add a new task</a>
+        <a class="btn btn-primary btn-lg"   id="homeInsertMany" href="/insertMany" role="button">Insert Many</a>
+        <a class="btn btn-info btn-lg"      id="homeListTask" href="/listTask" role="button">List tasks</a>
+        <a class="btn btn-danger btn-lg"    id="homeDeleteTask" href="/deleteTask" role="button">Delete Task</a>
+        <a class="btn btn-warning btn-lg"   id="homeDelAllCompleted" href="/delAllCompleted" role="button">Delete All</a>
+        <a class="btn btn-success btn-lg"   id="homeUpdateTask" href="/updateTask" role="button">Update Task</a>
+    </div>
+
+    <!--Form starts-->
+    <form action="/formAddDevs" method="POST">
+        <div class="form-center">
+            <!--Dev First Name-->
+            <div class="form-group col-md-5">
+                <label for="inputDevFirstName">First Name</label>
+                <input type="text" name="newDevFirstName" class="form-control" id="inputDevFirstName"
+                    aria-describedby="devFirstNameHelp" placeholder="Enter Developer's First name">
+            </div>
+
+            <!--Dev Last Name-->
+            <div class="form-group col-md-5">
+                <label for="inputDevLastName">Last Name</label>
+                <input type="text" name="newDevLastName" class="form-control" id="inputDevLastName"
+                    aria-describedby="devLastNameHelp" placeholder="Enter Developer's Last name">
+            </div>
+
+            <!--Dev Level-->
+            <div class="form-group col-md-5">
+                <label class="mr-sm-2" for="inputDevLvl">Task Status</label>
+                <select class="custom-select mr-sm-2" name="newDevLvl" class="form-control" id="newDevLvl" aria-describedby="devTaskStatusHelp">
+                    <option selected>Enter the Developer's level...</option>
+                    <option value="Beginner">InProgress</option>
+                    <option value="Expert">Complete</option>
+                </select>
+                </div>
+            
+            <!--Dev state-->
+            <div class="form-group col-md-5">
+                <label for="inputDevState">State</label>
+                <input type="text" name="newDevState" class="form-control" id="inputDevState"
+                    aria-describedby="devStateHelp" placeholder="Enter the state">
+            </div>
+
+            <!--Dev suburb-->
+            <div class="form-group col-md-5">
+                <label for="inputDevSuburb">Suburb</label>
+                <input type="text" name="newDevSuburb" class="form-control" id="inputDevSuburb"
+                    aria-describedby="devSuburbHelp" placeholder="Enter the suburb">
+            </div>
+
+            <!--Dev Street-->
+            <div class="form-group col-md-5">
+                <label for="inputDevStreet">Street</label>
+                <input type="text" name="newDevStreet" class="form-control" id="inputDevStreet"
+                    aria-describedby="devStreetHelp" placeholder="Enter the street">
+            </div>
+
+            <!--Dev Unit-->
+            <div class="form-group col-md-5">
+                <label for="inputDevUnit">Unit</label>
+                <input type="text" name="newDevUnit" class="form-control" id="inputDevUnit"
+                    aria-describedby="devUnitHelp" placeholder="Enter the unit">
+            </div>
+            </select>
+        </div>
+        </div>
+        <!-- <div class="form-group col-md-5">               
+            <label for="inputTaskStatus">Task Status</label>
+            <input type="text" name="newStatus" class="form-control" id="inputTaskStatus" aria-describedby="taskStatusHelp"
+                placeholder="Select the Status">
+        </div> -->
+
+        <!--Task Submit button-->
+        <div class="text-center">
+            <button type="submit" class="btn btn-dark" id="Submit1">Submit</button>
+        </div>
+
+
+    </form>
+    <!--Form ends-->
+
+</body>
+
+</html>

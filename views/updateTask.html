@@ -1,57 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Update a Task</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Update a Task</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
-    
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-        <link rel="stylesheet" type="text/css" href="week6lab.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+                crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="week7lab.css" />
 </head>
+
 <body>
-        
-    
+
+
         <h1>Delete a task below</h1>
 
         <div class="text-center">
-                <a class="btn btn-warning btn-lg"   id="home"           href="/"            role="button">Home</a>
-                <a class="btn btn-primary btn-lg"   id="homeAddTask"    href="/addTask"     role="button">Add a new task</a>
-                <a class="btn btn-primary btn-lg"   id="homeInsertMany"    href="/insertMany"     role="button">Insert Many</a>
-                <a class="btn btn-info btn-lg"      id="homeListTask"   href="/listTask"    role="button">List tasks</a>
-                <a class="btn btn-danger btn-lg"    id="homeDeleteTask" href="/deleteTask"  role="button">Delete Task</a>
-                <a class="btn btn-warning btn-lg"    id="homeDelAllCompleted" href="/delAllCompleted"  role="button">Delete All</a>
+                <a class="btn btn-warning btn-lg" id="home" href="/" role="button">Home</a>
+                <a class="btn btn-primary btn-lg" id="homeAddDevs" href="/addDevs" role="button">Add developer</a>
+                <a class="btn btn-info btn-lg" id="homeListDevs" href="/listDevs" role="button">List developers</a>
+                <a class="btn btn-primary btn-lg" id="homeAddTask" href="/addTask" role="button">Add a new task</a>
+                <a class="btn btn-primary btn-lg" id="homeInsertMany" href="/insertMany" role="button">Insert Many</a>
+                <a class="btn btn-info btn-lg" id="homeListTask" href="/listTask" role="button">List tasks</a>
+                <a class="btn btn-danger btn-lg" id="homeDeleteTask" href="/deleteTask" role="button">Delete Task</a>
+                <a class="btn btn-warning btn-lg" id="homeDelAllCompleted" href="/delAllCompleted" role="button">Delete
+                        All</a>
         </div>
 
-        <!--Form starts-->    
-        <form action="/formUpdateTask" method="POST">             
+        <!--Form starts-->
+        <form action="/formUpdateTask" method="POST">
 
-        <!--Update by Task ID-->
-        <div class="form-center">      
-               <div class="form-group col-md-5">               
-                   <label for="inputUpdateById">Task ID</label>
-                   <input type="text" name="updateTask" class="form-control" id="updateTask" aria-describedby="updateTaskHelp"
-                       placeholder="Enter task id">
-               </div>
-               <div class="form-group col-md-5">
-                    <label class="mr-sm-2" for="inputTaskStatus">Task Status</label>
-                    <select class="custom-select mr-sm-2" name="newStatus" id="newStatus">
-                    <option selected>Choose...</option>
-                    <option value="InProgress">InProgress</option>
-                    <option value="Complete">Complete</option>
-                    </select>
+                <!--Update by Task ID-->
+                <div class="form-center">
+                        <div class="form-group col-md-5">
+                                <label for="inputUpdateById">Task ID</label>
+                                <input type="text" name="updateTask" class="form-control" id="updateTask"
+                                        aria-describedby="updateTaskHelp" placeholder="Enter task id">
+                        </div>
+                        <div class="form-group col-md-5">
+                                <label class="mr-sm-2" for="inputTaskStatus">Task Status</label>
+                                <select class="custom-select mr-sm-2" name="newStatus" id="newStatus">
+                                        <option selected>Choose...</option>
+                                        <option value="InProgress">InProgress</option>
+                                        <option value="Complete">Complete</option>
+                                </select>
+                        </div>
                 </div>
-        </div> 
-               <!--Task Submit button-->
-               <div class="text-center">
-                    <button type="submit" class="btn btn-dark" id="Submit3">Submit</button>
-               </div>
-                 
-        </form>                                            
+                <!--Task Submit button-->
+                <div class="text-center">
+                        <button type="submit" class="btn btn-dark" id="Submit3">Submit</button>
+                </div>
+
+        </form>
         <!--Form ends-->
 </body>
+
 </html>

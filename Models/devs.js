@@ -8,7 +8,7 @@ let devsSchema = mongoose.Schema({
             type: String,
             required: true
         },
-        lastname: {
+        lastName: {
             type: String
 
         },
@@ -38,4 +38,4 @@ let devsSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Developer', devsSchema);
+module.exports = mongoose.model('Devs', devsSchema);
