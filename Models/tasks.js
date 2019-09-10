@@ -23,7 +23,7 @@ let tasksSchema = mongoose.Schema({
         type: String,
         validate: {
             validator: function (statusVal) {
-                return statusVal === "inProgress" || statusVal === "Complete";
+                return statusVal === "InProgress" || statusVal === "Complete";
             }
         },
         required: true

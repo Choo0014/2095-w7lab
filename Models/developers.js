@@ -15,9 +15,13 @@ let devsSchema = mongoose.Schema({
     },
     level: {
         type: String,
+        uppercase: true,
         validate: {
             validator: function (lvl) {
-                return lvl === "Beginner" || lvl === "Expert";
+                 if (lvl === "BEGINNER" || lvl === "EXPERT"){
+                    return lvl
+                 }
+                
             }
         },
         required: true

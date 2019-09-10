@@ -128,8 +128,7 @@ router.get('/deleteTask', function (req, res) {
 
 // getting input for ID
 router.post('/formDeleteTask', function (req, res) {
-
-    let id = new mongoose.Types.ObjectId(req.body.taskid);
+    let id = new mongoose.Types.ObjectId(req.body.delTask);
     Tasks.deleteOne({
         _id: id
     }, function (err) {
@@ -144,53 +143,39 @@ router.post('/formDeleteTask', function (req, res) {
 
 });
 
-//delete all completed task page
+//Get del all completed task page
 router.get('/delAllCompleted', function (req, res) {
-    Tasks.find({}, function (err, d) {
-        if (err) {
-            console.log('Error: Unavailable to delete all devs');
-            throw err;
-        } else {
-            res.sendFile(path2Views + '/delAllCompleted.html', {
-                tasks: d
-            });
-        }
-    });
     res.sendFile(path2Views + '/delAllCompleted.html');
+
 });
 
-// getting input for ID
+// del all completed
 router.post('/formDeleteAll', function (req, res) {
-    let details = req.body.delAll;
-    console.log(details);
-    let filter = {
-        taskStatus: details
-    }
-    console.log(filter);
-
-    db.collection('week7Lab').deleteMany(filter);
+    Tasks.deleteMany({
+        'status': 'Complete'
+    }, function (err) {
+        if (err) throw err;
+    });
     res.redirect('/listTask');
-
 });
 
-//Update task page
+//Get Update task page
 router.get('/updateTask', function (req, res) {
     res.sendFile(path2Views + '/updateTask.html');
 });
 
 //Updating task by ID
 router.post('/formUpdateTask', function (req, res) {
-    let id = new mongoose.Types.ObjectId(req.body.taskid);
+    let id = new mongoose.Types.ObjectId(req.body.updateTask);
     Tasks.updateOne({
         _id: id
     }, {
         $set: {
-            'taskStatus': req.body.status
+            'status': req.body.newStatus
         }
     }, function (err) {
         if (err) throw err;
     });
-
     res.redirect('/listTask');
 
 });
