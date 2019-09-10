@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Delete a Task</title>
+        <title>Delete a Developer</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 
@@ -19,43 +19,40 @@
 <body>
 
 
-        <h1>Delete all completed tasks</h1>
+        <h1>Delete a developer below</h1>
 
         <div class="text-center">
                 <a class="btn btn-warning btn-lg" id="home" href="/" role="button">Home</a>
                 <a class="btn btn-primary btn-lg" id="homeAddDevs" href="/addDevs" role="button">Add developer</a>
                 <a class="btn btn-info btn-lg" id="homeListDevs" href="/listDevs" role="button">List developers</a>
-                <a class="btn btn-danger btn-lg" id="homeDeleteDevs" href="/deleteDevs" role="button">Delete Developer</a>
                 <a class="btn btn-primary btn-lg" id="homeAddTask" href="/addTask" role="button">Add a new task</a>
                 <a class="btn btn-primary btn-lg" id="homeInsertMany" href="/insertMany" role="button">Insert Many</a>
                 <a class="btn btn-info btn-lg" id="homeListTask" href="/listTask" role="button">List tasks</a>
                 <a class="btn btn-danger btn-lg" id="homeDeleteTask" href="/deleteTask" role="button">Delete Task</a>
+                <a class="btn btn-warning btn-lg" id="homeDelAllCompleted" href="/delAllCompleted" role="button">Delete All</a>
                 <a class="btn btn-success btn-lg" id="homeUpdateTask" href="/updateTask" role="button">Update Task</a>
         </div>
 
-
-
         <!--Form starts-->
-        <form action="/formDeleteAll" method="POST">
+
+        <form action="/formDeleteDevs" method="POST">
+
+                <!--Delete by Dev's ID-->
                 <div class="form-center">
-                        <!--Delete by Task ID-->
-                        <div class="form-group col-md-5 ">
-                                <label for="disabledSelect">Task Status</label>
-                                <select id="disabledSelect" class="form-control" name="delAll" id="delAll">
-                                        <option value="Complete">Complete</option>
-                                </select>
+                        <div class="form-group col-md-5">
+                                <label for="inputDeleteById">Dev ID</label>
+                                <input type="text" name="delDevs" class="form-control" id="delDevs"
+                                        aria-describedby="delDevsHelp" placeholder="Enter Developer's id">
                         </div>
                 </div>
-                <!--Task Submit button-->
+                <!--Devs Submit button-->
                 <div class="text-center">
-                        <button type="submit" class="btn btn-dark" id="Submit4">Submit</button>
+                        <button type="submit" class="btn btn-dark" id="SubmitDelDev">Submit</button>
                 </div>
 
         </form>
 
         <!--Form ends-->
-
-
 </body>
 
 </html>

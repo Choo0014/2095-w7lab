@@ -71,7 +71,7 @@ router.post('/formTask', function (req, res) {
 router.get('/insertMany', function (req, res) {
     Developers.find({}, function (err, data) {
         if (err) {
-            console.log('Error: Insert Page');
+            console.log('Error: Insert MAny Page');
             throw error;
         } else {
             console.log('added multiple tasks successfully');
@@ -88,22 +88,45 @@ router.get('/insertMany', function (req, res) {
 //Inserting many tasks from form
 router.post('/formInsertMany', function (req, res) {
     let countNo = req.body.newInsertMany;
-    let arrayMany = [];
 
-    for (let i = 0; i < countNo; i++) { //loop input x times
-        arrayMany.push({
-            taskName: req.body.newTask,
-            taskPersonInCharge: req.body.newInCharge,
-            taskDueDate: req.body.newDue,
-            taskDesc: req.body.newDesc,
-            taskStatus: req.body.newStatus
-        })
-        console.log("InloopArray:" + arrayMany);
+    for (let i = 0; i < countNo; i++) {
+        let tasks = new Tasks({
+            _id: new mongoose.Types.ObjectId(),
+            name: req.body.newTask,
+            developer: req.body.newInCharge,
+            dueDate: req.body.newDue,
+            desc: req.body.newDesc,
+            status: req.body.newStatus
+        });
 
+        tasks.save(function (err) {
+            if (err) {
+                console.log('Error: Can\'t show the task form')
+                throw err;
+            } else {
+                console.log('Added to week7Lab');
+            }
+
+        });
     }
-    console.log("Array:" + arrayMany);
-    db.collection("week7Lab").insertMany(arrayMany); //passs in the array of objects
+
     res.redirect('/listTask');
+
+
+    // for (let i = 0; i < countNo; i++) { //loop input x times
+    //     arrayMany.push({
+    //         taskName: req.body.newTask,
+    //         taskPersonInCharge: req.body.newInCharge,
+    //         taskDueDate: req.body.newDue,
+    //         taskDesc: req.body.newDesc,
+    //         taskStatus: req.body.newStatus
+    //     })
+    //     console.log("InloopArray:" + arrayMany);
+
+    // }
+    // console.log("Array:" + arrayMany);
+    // db.collection("week7Lab").insertMany(arrayMany); //pass in the array of objects
+    // res.redirect('/listTask');
 })
 
 //listing task page
@@ -225,4 +248,28 @@ router.get('/listDevs', function (req, res) {
         });
     });
 });
+
+//delete devs page
+router.get('/deleteDevs', function (req, res) {
+    res.sendFile(path2Views + '/deleteDevs.html');
+});
+
+
+// getting input for dev ID
+router.post('/formDeleteDevs', function (req, res) {
+    let id = new mongoose.Types.ObjectId(req.body.delDevs);
+    Developers.deleteOne({
+        _id: id
+    }, function (err) {
+        if (err) {
+            console.log('Error: Delete Form');
+            throw err;
+        } else {
+            console.log('Delete Successful');
+        }
+    });
+    res.redirect('/listDevs');
+
+});
+
 module.exports = router;

@@ -22,6 +22,7 @@
         <a class="btn btn-warning btn-lg" id="home" href="/" role="button">Home</a>
         <a class="btn btn-primary btn-lg" id="homeAddDevs" href="/addDevs" role="button">Add developer</a>
         <a class="btn btn-info btn-lg" id="homeListDevs" href="/listDevs" role="button">List developers</a>
+        <a class="btn btn-danger btn-lg" id="homeDeleteDevs" href="/deleteDevs" role="button">Delete Developer</a>
         <a class="btn btn-primary btn-lg"   id="homeInsertMany" href="/addTask" role="button">Add a new task</a>
         <a class="btn btn-info btn-lg" id="homeListTask" href="/listTask" role="button">List tasks</a>
         <a class="btn btn-danger btn-lg" id="homeDeleteTask" href="/deleteTask" role="button">Delete Task</a>
@@ -51,7 +52,7 @@
             <!--Task Due Date-->
             <div class="form-group col-md-5">
                 <label for="inputDueDate">Task Due</label>
-                <input type="text" name="newDue" class="form-control" id="inputDueDate"
+                <input type="date" name="newDue" class="form-control" id="inputDueDate"
                     aria-describedby="taskDueDateHelp" placeholder="Enter the date">
             </div>
 

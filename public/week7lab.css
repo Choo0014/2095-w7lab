@@ -38,7 +38,7 @@ h3 {
 
 }
 
-#home,#homeAddTask,#homeInsertMany,#homeListTask,#homeDeleteTask,#homeUpdateTask,#homeAddDevs,#homeListDevs {
+#home,#homeAddTask,#homeInsertMany,#homeListTask,#homeDeleteTask,#homeUpdateTask,#homeAddDevs,#homeListDevs,#homeDeleteDevs{
     margin-left: 15px;
 }
 

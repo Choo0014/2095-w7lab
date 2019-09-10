@@ -20,9 +20,9 @@ let devsSchema = mongoose.Schema({
             validator: function (lvl) {
                  if (lvl === "BEGINNER" || lvl === "EXPERT"){
                     return lvl
-                 }
-                
-            }
+                 } 
+            },
+            message: 'Level should only be Beginner or Expert'
         },
         required: true
     },

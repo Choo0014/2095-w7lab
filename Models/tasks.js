@@ -9,11 +9,13 @@ let tasksSchema = mongoose.Schema({
     },
     developer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Developer'
+        ref: 'Developer',
+        message: 'Developer needs to have a valid ID'
     },
     dueDate: {
         type: Date,
-        required: true
+        required: true,
+        message: 'Date needs to be in this format: DD/MM/YYYY'
     },
     desc: {
         type: String,
@@ -26,7 +28,8 @@ let tasksSchema = mongoose.Schema({
                 return statusVal === "InProgress" || statusVal === "Complete";
             }
         },
-        required: true
+        required: true,
+        message: 'Status should only be "Inprogress" or "Complete" '
     }
 });
 
