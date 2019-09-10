@@ -1,94 +1,104 @@
 const express = require('express');
 const router = express.Router();
 const path2Views = __dirname + "/views";
-const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
 const mongoose = require('mongoose');
 
-const morgan = require('morgan');
-const url = 'mongodb://localhost:27017/';
 
-const OBJECTID = mongodb.ObjectID;
-let db = null;
+const url = 'mongodb://localhost:27017/week7Lab';
+const Developers = require('./models/developers.js'); //folder name !!!
+const Tasks = require('./models/tasks.js');
 
-//Connecting to MongoDB
-MongoClient.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, function (err, client) {
+
+
+//Connecting to MongoDB via mongoose
+mongoose.connect(url, {
+    useNewUrlParser: true
+}, function (err) {
     if (err) {
-        console.log('Err  ', err);
+        console.log("Error... Can't connect");
+        throw err;
     } else {
-        console.log("Connected successfully to server");
-        db = client.db("week7Lab");
+        console.log("Connected to week7Lab");
     }
 });
 
-//home page
+
+
+//Home page
 router.get('/', function (req, res) {
     res.sendFile(path2Views + '/index.html');
 });
 
-//adding task page
+
+
+
+//Get Add task page
 router.get('/addTask', function (req, res) {
     res.sendFile(path2Views + '/addTask.html');
 });
 
-//getting input
+
+
+
+// input from form
 router.post('/formTask', function (req, res) {
-    //checking parameters in log
-    console.log(req.body.newTask);
-    console.log(req.body.newInCharge);
-    console.log(req.body.newDue);
-    console.log(req.body.newDesc);
-    console.log(req.body.newStatus);
-
-    //Passing into MongoDB
-    db.collection("week7Lab").insertOne({
-        taskName: req.body.newTask,
-        taskPersonInCharge: req.body.newInCharge,
-        taskDueDate: req.body.newDue,
-        taskDesc: req.body.newDesc,
-        taskStatus: req.body.newStatus
+    let tasks = new Tasks({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.newTask,
+        developer: req.body.newInCharge,
+        dueDate: req.body.newDue,
+        desc: req.body.newDesc,
+        status: req.body.newStatus
     });
-    res.redirect('/listTask');
-})
+    tasks.save(function (err) {
+        if (err) {
+            console.log('Error: Can\'t show the task form')
+            throw err;
+        } else {
+            console.log('Added to week7Lab');
+        }
 
-//adding Insert Many page
-router.get('/insertMany', function (req, res) {
-    res.sendFile(path2Views + '/insertMany.html');
+    });
+
+    res.redirect('/listTask');
 });
 
-//Adding many tasks
-router.post('/formInsertMany', function (req, res) {
-    //checking parameters in log
-    console.log(req.body.newTask);
-    console.log(req.body.newInCharge);
-    console.log(req.body.newDue);
-    console.log(req.body.newDesc);
-    console.log(req.body.newInsertMany);
-    console.log(req.body.newStatus);
 
+
+
+
+//Get Insert Many tasks page
+router.get('/insertMany', function (req, res) {
+    Developers.find({}, function (err, data) {
+        if (err) {
+            console.log('Error: Insert Page');
+            throw error;
+        } else {
+            console.log('added multiple tasks successfully');
+            res.sendFile(path2Views + '/insertMany.html', {
+                devs: data
+            });
+        }
+    });
+});
+
+
+
+
+//Inserting many tasks from form
+router.post('/formInsertMany', function (req, res) {
     let countNo = req.body.newInsertMany;
     let arrayMany = [];
 
-    // let obj = {
-    //     taskName: req.body.newTask,
-    //     taskPersonInCharge: req.body.newInCharge,
-    //     taskDueDate: req.body.newDue,
-    //     taskDesc: req.body.newDesc,
-    //     taskStatus: req.body.newStatus
-    // };
-    // console.log("Object:" + obj);
     for (let i = 0; i < countNo; i++) { //loop input x times
-        arrayMany.push(
-            {taskName: req.body.newTask,
+        arrayMany.push({
+            taskName: req.body.newTask,
             taskPersonInCharge: req.body.newInCharge,
             taskDueDate: req.body.newDue,
             taskDesc: req.body.newDesc,
-            taskStatus: req.body.newStatus}
-            )
-            console.log("InloopArray:" + arrayMany);
+            taskStatus: req.body.newStatus
+        })
+        console.log("InloopArray:" + arrayMany);
 
     }
     console.log("Array:" + arrayMany);
@@ -96,31 +106,18 @@ router.post('/formInsertMany', function (req, res) {
     res.redirect('/listTask');
 })
 
-//Adding new Developer Page
-
-router.get('/addDevs', function (req, res) {
-    res.sendFile(path2Views + '/addDevs.html');
-
-});
-
-//Listing Developers Page
-
-router.get('/listDevs', function (req, res) {
-    Devs.find({}, function (err, d) {
-        if(err) throw err;
-        res.render(path2Views + '/listDevs.html', {devs: d});
-    });
-});
-
 //listing task page
 router.get('/listTask', function (req, res) {
-
-    db.collection("week7Lab").find({}).toArray(function (err, data) {
-        res.render('listTask.html', {
-            taskDb: data
-        });
+    Tasks.find({}, function (err, data) {
+        if (err) {
+            console.log('Error: list devs');
+            throw err;
+        } else {
+            res.render("listTask.html", {
+                tasks: data
+            });
+        }
     });
-
 });
 
 //delete task page
@@ -128,22 +125,37 @@ router.get('/deleteTask', function (req, res) {
     res.sendFile(path2Views + '/deleteTask.html');
 });
 
+
 // getting input for ID
 router.post('/formDeleteTask', function (req, res) {
-    let details = new OBJECTID(req.body.delTask);
-    console.log(details);
-    let filter = {
-        _id: details
-    }
-    console.log(filter);
 
-    db.collection('week7Lab').deleteOne(filter);
+    let id = new mongoose.Types.ObjectId(req.body.taskid);
+    Tasks.deleteOne({
+        _id: id
+    }, function (err) {
+        if (err) {
+            console.log('Error: Delete Form');
+            throw err;
+        } else {
+            console.log('Delete Successful');
+        }
+    });
     res.redirect('/listTask');
 
 });
 
 //delete all completed task page
 router.get('/delAllCompleted', function (req, res) {
+    Tasks.find({}, function (err, d) {
+        if (err) {
+            console.log('Error: Unavailable to delete all devs');
+            throw err;
+        } else {
+            res.sendFile(path2Views + '/delAllCompleted.html', {
+                tasks: d
+            });
+        }
+    });
     res.sendFile(path2Views + '/delAllCompleted.html');
 });
 
@@ -165,22 +177,20 @@ router.post('/formDeleteAll', function (req, res) {
 router.get('/updateTask', function (req, res) {
     res.sendFile(path2Views + '/updateTask.html');
 });
-//updatting task by ID
+
+//Updating task by ID
 router.post('/formUpdateTask', function (req, res) {
-    let details = new OBJECTID(req.body.updateTask);
-    console.log(details);
-    let filter = {
-        _id: details
-    }
-    console.log(filter);
-    let theUpdate = {
+    let id = new mongoose.Types.ObjectId(req.body.taskid);
+    Tasks.updateOne({
+        _id: id
+    }, {
         $set: {
-            taskStatus: req.body.newStatus //db attribute: input from form
+            'taskStatus': req.body.status
         }
-    };
+    }, function (err) {
+        if (err) throw err;
+    });
 
-
-    db.collection('week7Lab').updateOne(filter, theUpdate);
     res.redirect('/listTask');
 
 });
@@ -189,15 +199,45 @@ router.post('/formUpdateTask', function (req, res) {
 
 router.get('/addDevs', function (req, res) {
     res.sendFile(path2Views + '/addDevs.html');
-
 });
 
-//Listing Developers Page
+//getting input for devs
+router.post('/formAddDevs', function (req, res) {
+    let Devs = new Developers({
+        _id: new mongoose.Types.ObjectId(),
+        name: {
+            firstName: req.body.newDevFirstName,
+            lastName: req.body.newDevLastName
+        },
+        level: req.body.newDevLvl,
+        address: {
+            state: req.body.newDevState,
+            suburb: req.body.newDevSuburb,
+            street: req.body.newDevStreet,
+            unit: req.body.newDevUnit
+        }
+    });
+    Devs.save(function (err) {
+        if (err) {
+            console.log('Error: Can\'t store the details of developer')
+            throw err;
+        } else {
+            console.log('Added to week7Lab');
+        }
+    });
+    res.redirect('/listDevs');
+});
+
+
+
+//Get the list Developers Page
 
 router.get('/listDevs', function (req, res) {
-    Devs.find({}, function (err, d) {
-        if(err) throw err;
-        res.render(path2Views + '/listDevs.html', {devs: d});
+    Developers.find({}, function (err, data) {
+        if (err) throw err;
+        res.render(path2Views + '/listDevs.html', {
+            devs: data
+        });
     });
 });
 module.exports = router;

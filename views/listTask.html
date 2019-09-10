@@ -47,14 +47,14 @@
             </tr>
         </thead>
         <tbody>
-            <% for ( var i =0; i< taskDb.length;i++){ %>
+            <% for ( var i =0; i< tasks.length;i++){ %>
             <tr>
-                <td><%= taskDb[i]._id  %></td>
-                <td><%= taskDb[i].taskName %></td>
-                <td><%= taskDb[i].taskPersonInCharge %></td>
-                <td><%= taskDb[i].taskDueDate %></td>
-                <td><%= taskDb[i].taskDesc %></td>
-                <td><%= taskDb[i].taskStatus %></td>
+                <td><%= tasks[i]._id  %></td>
+                <td><%= tasks[i].name %></td>
+                <td><%= tasks[i].developer %></td>
+                <td><%= tasks[i].dueDate %></td>
+                <td><%= tasks[i].status %></td>
+                <td><%= tasks[i].desc %></td>
             </tr>
             <% }%>
         </tbody>

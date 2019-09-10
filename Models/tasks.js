@@ -3,29 +3,29 @@ const mongoose = require('mongoose');
 let tasksSchema = mongoose.Schema({
 
     _id: mongoose.Schema.Types.ObjectId,
-    taskName: {
+    name: {
         type: String,
         required: true
     },
-    taskAssignTo: {
+    developer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'AssignTo'
+        ref: 'Developer'
     },
-    taskDueDate: {
+    dueDate: {
         type: Date,
         required: true
     },
-    taskStatus: {
+    desc: {
+        type: String,
+        required: true
+    },
+    status: {
         type: String,
         validate: {
             validator: function (statusVal) {
                 return statusVal === "inProgress" || statusVal === "Complete";
             }
         },
-        required: true
-    },
-    taskDesc: {
-        type: String,
         required: true
     }
 });
