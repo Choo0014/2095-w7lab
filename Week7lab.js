@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 
 
 const url = 'mongodb://localhost:27017/week7Lab';
-const Developers = require('./models/developers.js'); //folder name !!!
-const Tasks = require('./models/tasks.js');
+const Developers = require('./Models/Developers.js'); //folder name !!!
+const Tasks = require('./Models/tasks.js');
 
 
 
