@@ -133,13 +133,28 @@ router.post('/formInsertMany', function (req, res) {
 router.get('/listTask', function (req, res) {
     Tasks.find({}, function (err, data) {
         if (err) {
-            console.log('Error: list devs');
+            console.log('Error: list tasks');
             throw err;
         } else {
             res.render("listTask.html", {
                 tasks: data
             });
         }
+    });
+});
+
+//List 3 completed tasks (age descending order)
+router.get('/listTasksLimited', function (req, res) {
+    Tasks.find({ 'status': 'Complete' }).limit(3).sort({date: -1}).exec(function (err, docs) {
+        if (err) {
+            console.log('Error: list limited tasks');
+            throw err;
+        } else {
+            res.render("listTask.html", {
+                tasks: docs
+            });
+        }
+        console.log(docs);
     });
 });
 
