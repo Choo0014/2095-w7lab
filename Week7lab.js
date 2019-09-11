@@ -145,7 +145,7 @@ router.get('/listTask', function (req, res) {
 
 //List 3 completed tasks (age descending order)
 router.get('/listTasksLimited', function (req, res) {
-    Tasks.find({ 'status': 'Complete' }).limit(3).sort({date: -1}).exec(function (err, docs) {
+    Tasks.find({ 'status': 'Complete' }).limit(3).sort({name: -1}).exec(function (err, docs) {
         if (err) {
             console.log('Error: list limited tasks');
             throw err;
